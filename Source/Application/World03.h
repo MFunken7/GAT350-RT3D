@@ -15,12 +15,14 @@ namespace nc
 		void Draw(Renderer& renderer) override;
 
 	private:
-		float m_angle = 0;
-		float m_time;
-		vec2 m_position;
-		std::vector<vec2> m_positions;
+		float m_time = 0;
+		float m_speed = 10.0f;
+
+		Transform m_transform;
 
 		GLuint m_vao;
 		res_t<Program> m_program;
+		res_t<Texture> m_texture;
+
 	};
 }

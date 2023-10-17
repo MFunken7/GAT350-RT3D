@@ -7,6 +7,7 @@
 #include "Program.h"
 #include "Gui.h"
 #include "vertexbuffer.h"
+#include "Material.h"
 #include <glad/include/glad/glad.h>
 #include <SDL2-2.28.4/include/SDL.h>
 #include <string>

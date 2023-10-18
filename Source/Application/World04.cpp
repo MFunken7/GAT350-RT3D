@@ -12,7 +12,7 @@ namespace nc
         m_material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(m_material);
-        m_model->Load("Models/squirrel.glb");
+        m_model->Load("Models/buddha.obj");
 
 
        /* m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
@@ -49,9 +49,9 @@ namespace nc
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         ImGui::Begin("Transform");
-        ImGui::DragFloat3("Position", &m_transform.position[0]);
+        ImGui::DragFloat3("Position", &m_transform.position[0], 0.1f);
         ImGui::DragFloat3("Rotation", &m_transform.rotation[0]);
-        ImGui::DragFloat3("Scale", &m_transform.scale[0]);
+        ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
         ImGui::End();
 
         //m_transform.rotation.z += 90 * dt;
@@ -96,6 +96,12 @@ namespace nc
 
        
         // render
+        
+        //will only draw a wire mesh
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        
+        //will draw the full model
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_model->Draw(GL_TRIANGLES);
 
         ENGINE.GetSystem<Gui>()->Draw();

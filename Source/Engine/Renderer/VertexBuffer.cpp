@@ -49,13 +49,13 @@ namespace nc
 		switch (m_indexType)
 		{
 		case GL_UNSIGNED_BYTE:
-			size = m_indexCount * sizeof(GL_UNSIGNED_BYTE);
+			size = m_indexCount * sizeof(GLubyte);
 			break;
 		case GL_UNSIGNED_SHORT:
-			size = m_indexCount * sizeof(GL_UNSIGNED_SHORT);
+			size = m_indexCount * sizeof(GLushort);
 			break;
 		case GL_UNSIGNED_INT:
-			size = m_indexCount * sizeof(GL_UNSIGNED_INT);
+			size = m_indexCount * sizeof(GLuint);
 			break;
 		}
 

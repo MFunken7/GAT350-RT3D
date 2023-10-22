@@ -12,7 +12,7 @@ namespace nc
         m_material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(m_material);
-        m_model->Load("Models/buddha.obj");
+        m_model->Load("Models/sphere.obj", glm::vec3{ 0 }, glm::vec3{ 90, 0, 0 });
 
 
        /* m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
@@ -54,6 +54,12 @@ namespace nc
         ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
         ImGui::End();
 
+        ImGui::Begin("Lighting");
+        ImGui::ColorEdit3("Ambient Color", glm::value_ptr(m_aColor), 0.1f);
+        ImGui::ColorEdit3("Light Color", glm::value_ptr(m_lColor), 0.1f);
+        ImGui::DragFloat3("Light Position", &m_lPosition[0], 0.1f);
+        ImGui::End();
+
         //m_transform.rotation.z += 90 * dt;
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * dt : 0;
@@ -79,12 +85,14 @@ namespace nc
       /*  uniform = glGetUniformLocation(m_program->m_program, "view");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(view));*/
 
-        glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.Instance().GetSystem<Renderer>()->GetWidth() / (float)ENGINE.Instance().GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
        material->GetProgram()->SetUniform("projection", projection);
        /* uniform = glGetUniformLocation(m_program->m_program, "projection");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(projection));*/
 
-       
+       material->GetProgram()->SetUniform("ambientLight", m_aColor);
+       material->GetProgram()->SetUniform("light.position", m_lPosition);
+       material->GetProgram()->SetUniform("light.color", m_lColor);
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }

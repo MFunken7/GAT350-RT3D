@@ -21,6 +21,10 @@ namespace nc
 
 		Transform m_transform;
 
+		glm::vec3 m_aColor = glm::vec3(0.2, 0.2, 0.2);
+		glm::vec3 m_lColor = glm::vec3(1, 1, 1);
+		glm::vec3 m_lPosition = glm::vec3(0, 8, 0);
+
 		res_t<VertexBuffer> m_vertexBuffer;
 		res_t<Program> m_program;
 		res_t<Texture> m_texture;

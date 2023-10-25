@@ -5,8 +5,28 @@
 #include "Core/Math/Transform.h"
 #include <vector>
 
+#define POINT 0
+
 namespace nc
 {
+	struct light_t {
+		enum eType
+		{
+			Point,
+			Directional,
+			Spot
+		};
+
+		eType type;
+		glm::vec3 position;
+		glm::vec3 direction;
+		glm::vec3 color;
+		float intensity;
+		float range;
+		float innerAngle;
+		float outerAngle;
+	};
+
 	class World04 : public World
 	{
 	public:
@@ -21,9 +41,11 @@ namespace nc
 
 		Transform m_transform;
 
-		glm::vec3 m_aColor = glm::vec3(0.2, 0.2, 0.2);
-		glm::vec3 m_lColor = glm::vec3(1, 1, 1);
-		glm::vec3 m_lPosition = glm::vec3(0, 8, 0);
+		//light_t m_light;
+		light_t m_lights[3];
+		int m_selected = 0;
+		glm::vec3 m_aColor = glm::vec3(0.2f);
+	
 
 		res_t<VertexBuffer> m_vertexBuffer;
 		res_t<Program> m_program;

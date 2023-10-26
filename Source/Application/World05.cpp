@@ -11,8 +11,10 @@ namespace nc
     bool World05::Initialize()
     {
         m_scene = std::make_unique<Scene>();
+        m_scene->Load("scenes/scene.json");
+        m_scene->Initialize();
 
-        {
+       /* {
             auto actor = CREATE_CLASS(Actor);
             actor->name = "actor1";
             actor->transform.position = glm::vec3{ 0, 0, 0 };
@@ -37,7 +39,7 @@ namespace nc
             lightComponent->outerAngle = 30.0f;
             actor->AddComponent(std::move(lightComponent));
             m_scene->Add(std::move(actor));
-        }
+        }*/
 
         return true;
     }
@@ -51,6 +53,7 @@ namespace nc
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         m_scene->Update(dt);
+        m_scene->ProcessGui();
         //m_scene->ProcessGui();
 
 

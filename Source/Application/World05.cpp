@@ -41,6 +41,19 @@ namespace nc
             m_scene->Add(std::move(actor));
         }*/
 
+        {
+            auto actor = CREATE_CLASS(Actor);
+            actor->name = "camera1";
+            actor->transform.position = glm::vec3{ 0, 0, 3 };
+            actor->transform.rotation = glm::vec3{ 0, 180, 0 };
+
+            auto cameraComponent = CREATE_CLASS(CameraComponent);
+            cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
+            actor->AddComponent(std::move(cameraComponent));
+
+            m_scene->Add(std::move(actor));
+        }
+
         return true;
     }
     
@@ -81,15 +94,19 @@ namespace nc
     /*    GLint uniform = glGetUniformLocation(m_program->m_program, "model");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(model));*/
 
-        glm::mat4 view = glm::lookAt(glm::vec3{ 0, 0, 3 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
-        material->GetProgram()->SetUniform("view", view);
+       /* glm::mat4 view = glm::lookAt(glm::vec3{ 0, 0, 3 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
+        material->GetProgram()->SetUniform("view", view);*/
       /*  uniform = glGetUniformLocation(m_program->m_program, "view");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(view));*/
 
-        glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.Instance().GetSystem<Renderer>()->GetWidth() / (float)ENGINE.Instance().GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
-       material->GetProgram()->SetUniform("projection", projection);
+       /* glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.Instance().GetSystem<Renderer>()->GetWidth() / (float)ENGINE.Instance().GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
+       material->GetProgram()->SetUniform("projection", projection);*/
        /* uniform = glGetUniformLocation(m_program->m_program, "projection");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(projection));*/
+
+        // get camera component
+        
+
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }

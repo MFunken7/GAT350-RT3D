@@ -40,5 +40,21 @@ int main(int argc, char* argv[])
 	world->Shutdown();
 	ENGINE.Shutdown();
 
+	/*string string1 = "Hello, welcome";
+	cout << string1 << endl;
+	string string2 = nc::StringUtils::ToUpper(string1);
+	cout << "ToUpper: " << string2 << endl;
+
+	string string3 = "Hello, WELCOME";
+	cout << string3 << endl;
+	string string4 = nc::StringUtils::ToLower(string3);
+	cout << "ToLower: " << string4 << endl;
+
+	cout << string1 << " & " << string3 << endl;
+	cout << nc::StringUtils::IsEqualIgnoreCase(string1, string3) << endl;
+
+	cout << nc::StringUtils::CreateUnique(string1) << endl;
+	cout << nc::StringUtils::CreateUnique(string1) << endl;*/
+
 	return 0;
 }

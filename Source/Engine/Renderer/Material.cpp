@@ -2,6 +2,7 @@
 #include "Program.h"
 #include "Texture.h"
 #include "Core/Core.h"
+#include "Cubemap.h"
 #include <imgui/imgui.h>
 
 namespace nc
@@ -28,6 +29,7 @@ namespace nc
 		READ_NAME_DATA(document, "albedoTexture", albedoTextureName);
 		if (!albedoTextureName.empty())
 		{
+			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
 
@@ -35,6 +37,7 @@ namespace nc
 		READ_NAME_DATA(document, "specularTexture", specularTextureName);
 		if (!specularTextureName.empty())
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
 
@@ -42,6 +45,7 @@ namespace nc
 		READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName);
 		if (!emissiveTextureName.empty())
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
 
@@ -49,7 +53,18 @@ namespace nc
 		READ_NAME_DATA(document, "normalTexture", normalTextureName);
 		if (!normalTextureName.empty())
 		{
+			params |= NORMAL_TEXTURE_MASK;
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
+		}
+
+		std::string cubemapName;
+		READ_NAME_DATA(document, "cubemap", cubemapName);
+		if (!cubemapName.empty())
+		{
+			params |= CUBEMAP_TEXTURE_MASK;
+			std::vector<std::string> cubemaps;
+			READ_DATA(document, cubemaps);
+			cubemapTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
 		}
 
 		READ_DATA(document, albedo);
@@ -65,6 +80,7 @@ namespace nc
 	void Material::Bind()
 	{
 		m_program->Use();
+		m_program->SetUniform("material.params", params);
 		m_program->SetUniform("material.albedo", albedo);
 		m_program->SetUniform("material.specular", specular);
 		m_program->SetUniform("material.shininess", shininess);
@@ -92,6 +108,8 @@ namespace nc
 			emissiveTexture->SetActive(GL_TEXTURE3);
 			emissiveTexture->Bind();
 		}
+
+		
 	}
 
 	void Material::ProcessGui()

@@ -50,45 +50,28 @@ namespace nc
 		}
 		
 
+	
+
 		// get all shader programs in the resource system
-        auto programs = ResourceManager::Instance().GetAllOfType<Program>();
-        // set all shader programs camera and lights uniforms
-        for (auto& program : programs)
-        {
-            program->Use();
+		auto programs = ResourceManager::Instance().GetAllOfType<Program>();
+		// set all shader programs camera and lights uniforms
+		for (auto& program : programs)
+		{
+			program->Use();
 
- 
-			
+			// set camera in shader program
+			if (camera) camera->SetProgram(program);
 
-			// get all shader programs in the resource system
-			auto programs = ResourceManager::Instance().GetAllOfType<Program>();
-			// set all shader programs camera and lights uniforms
-			for (auto& program : programs)
-			{
-				program->Use();
-
-				// set camera in shader program
-				if (camera) camera->SetProgram(program);
-			}
-            
-			
 			int index = 0;
-            for (auto light : lights)
-            {
-                std::string name = "lights[" + std::to_string(index++) + "]";
+			for (auto light : lights)
+			{
+				std::string name = "lights[" + std::to_string(index++) + "]";
+				light->SetProgram(program, name);
+			}
 
- 
-
-                light->SetProgram(program, name);
-            }
-
- 
-
-            program->SetUniform("numLights", index);
-            program->SetUniform("ambientLight", ambientColor);
-        }
-
- 
+			program->SetUniform("numLights", index);
+			program->SetUniform("ambientLight", ambientColor);
+		}
 
         for (auto& actor : m_actors)
         {

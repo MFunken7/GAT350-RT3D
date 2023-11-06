@@ -23,7 +23,7 @@
 			"type": "Actor",
 			"name": "ogre",
 			"persistent": true,
-			"active": false,
+			"active": true,
 			"transform": {
 				"position": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
@@ -34,6 +34,42 @@
 					"type": "ModelComponent",
 					"modelName": "models/ogre.obj",
 					"materialName": "materials/ogre.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "reflection",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/reflection.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "refraction",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/refraction.mtrl"
 				}
 			]
 		},

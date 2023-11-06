@@ -45,11 +45,18 @@ namespace nc
             auto actor = CREATE_CLASS(Actor);
             actor->name = "camera1";
             actor->transform.position = glm::vec3{ 0, 0, 3 };
-            actor->transform.rotation = glm::vec3{ 0, 180, 0 };
+            actor->transform.rotation = glm::radians(glm::vec3{ 0, 180, 0 });
 
             auto cameraComponent = CREATE_CLASS(CameraComponent);
             cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
             actor->AddComponent(std::move(cameraComponent));
+
+            auto cameraController = CREATE_CLASS(CameraController);
+            cameraController->speed = 5;
+            cameraController->sensitivity = 0.5f;
+            cameraController->m_owner = actor.get();
+            cameraController->Initialize();
+            actor->AddComponent(std::move(cameraController));
 
             m_scene->Add(std::move(actor));
         }
@@ -75,11 +82,27 @@ namespace nc
 
         //m_transform.rotation.z += 90 * dt;
 
-        /*auto actor = m_scene->GetActorByName<Actor>("ogre");
+        auto actor = m_scene->GetActorByName<Actor>("ogre");
 
-        auto material = actor->GetComponent<ModelComponent>()->model->GetMaterial();
-        material->ProcessGui();*/
 
+        auto material = actor->GetComponent<ModelComponent>()->material;
+        material->ProcessGui();
+        material->Bind();
+
+        material = GET_RESOURCE(Material, "materials/refraction.mtrl");
+        if (material) {
+            ImGui::Begin("Refraction");
+            
+            //neat effect
+            //m_refraction = 1 + std::fabs(std::sin(m_time));
+
+            ImGui::DragFloat("IOR", &m_refraction, 0.01f, 1, 3);
+            auto program = material->GetProgram();
+            program->Use();
+            program->SetUniform("ior", m_refraction);
+            
+            ImGui::End();
+        }
        
 
     /*    GLint uniform = glGetUniformLocation(m_program->m_program, "model");

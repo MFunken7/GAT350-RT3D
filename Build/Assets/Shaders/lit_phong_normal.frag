@@ -73,12 +73,19 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 	specular = vec3(0);
 	//first we check to see if the intensity is greater then 0 or not
 	if(intensity > 0){
-	//if it is then we find the reflection by using reflect on the inverse of our light direction and the fragment normal
-		vec3 reflection = reflect(-lightDirection, normal);
 		//we find the view direction by normalizing the inverse of the fragment normal
 		vec3 viewDirection = normalize(-position);
+		
+		//phong
+		//if it is then we find the reflection by using reflect on the inverse of our light direction and the fragment normal
+		//vec3 reflection = reflect(-lightDirection, normal);
 		// then we find the intensity by doing the dot product of the reflection and view direction and then we clamp it
-		intensity = max(dot(reflection, viewDirection), 0);
+		//intensity = max(dot(reflection, viewDirection), 0);
+
+		//blinn-phong
+		vec3 h = normalize(viewDirection + lightDirection);
+		intensity = max(dot(h,normal),0);
+
 		//next we raise intensity by the power of shininess
 		intensity = pow(intensity, material.shininess);
 		//then we multiply the material specular by the intesity

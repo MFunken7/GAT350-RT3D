@@ -34,6 +34,10 @@
 					"type": "ModelComponent",
 					"modelName": "models/ogre.obj",
 					"materialName": "materials/ogre.mtrl"
+				},
+				{
+					"type": "RotateComponent",
+					"euler":  [0,20,0]
 				}
 			]
 		},
@@ -41,7 +45,7 @@
 			"type": "Actor",
 			"name": "reflection",
 			"persistent": true,
-			"active": true,
+			"active": false,
 			"transform": {
 				"position": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
@@ -59,7 +63,7 @@
 			"type": "Actor",
 			"name": "refraction",
 			"persistent": true,
-			"active": true,
+			"active": false,
 			"transform": {
 				"position": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
@@ -75,6 +79,43 @@
 		},
 		{
 			"type": "Actor",
+			"name": "sprite",
+			"persistent": true,
+			"active": false,
+			"transform": {
+				"position": [ 1, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/sprite.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "tree",
+			"persistent": true,
+			"active": false,
+			"prototype": true,
+			"transform": {
+				"position": [ -1, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/tree.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
 			"name": "light1",
 			"persistent": true,
 			"transform": {
@@ -84,7 +125,30 @@
 			},
 			"components": [
 				{
-					"type": "LightComponent"
+					"type": "LightComponent",
+					"typeNum": 1,
+					"color": [ 1, 1, 0 ],
+					"intensity": 2
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "camera1",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 0, 3 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "CameraComponent"
+				},
+				{
+					"type": "CameraController",
+					"speed": 5,
+					"sensitivity": 0.5
 				}
 			]
 		}

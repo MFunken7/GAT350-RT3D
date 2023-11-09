@@ -48,5 +48,26 @@ namespace nc
 	void LightComponent::Read(const nc::json_t& value)
 	{
 		// read json file
+		int typeNum;
+		READ_DATA(value, typeNum);
+		switch (typeNum) {
+			case 1:
+				type = eType::Point;
+			break;
+			case 2:
+				type = eType::Directional;
+				break;
+			case 3:
+				type = eType::Spot;
+				break;
+			default:
+				break;
+		}
+		READ_DATA(value, color);
+		READ_DATA(value, intensity);
+		READ_DATA(value, range);
+		READ_DATA(value, innerAngle);
+		READ_DATA(value, outerAngle);
+			
 	}
 }

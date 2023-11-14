@@ -48,21 +48,21 @@ namespace nc
         if (ImGui::Checkbox("Invert", &effect))
         {
             if (effect) m_params |= INVERT_MASK;
-            else m_params ^= INVERT_MASK;
+            else m_params &= INVERT_MASK;
         }
 
         effect = m_params & GRAYSCALE_MASK;
         if (ImGui::Checkbox("Grayscale", &effect))
         {
             if (effect) m_params |= GRAYSCALE_MASK;
-            else m_params ^= GRAYSCALE_MASK;
+            else m_params &= GRAYSCALE_MASK;
         }
 
         effect = m_params & COLORTINT_MASK;
         if (ImGui::Checkbox("Color Tint", &effect))
         {
             if (effect) m_params |= COLORTINT_MASK;
-            else m_params ^= COLORTINT_MASK;
+            else m_params &= COLORTINT_MASK;
         }
         ImGui::End();
 

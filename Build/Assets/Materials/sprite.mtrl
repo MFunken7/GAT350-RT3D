@@ -1,6 +1,6 @@
 {
   "program": "shaders/unlit_sprite.prog",
-  "albedoTexture": "textures/Biden.jpg",
+  "albedoTexture": "textures/llama.jpg",
   "albedo": [
     1,
     1,

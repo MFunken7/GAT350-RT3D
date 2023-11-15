@@ -48,22 +48,48 @@ namespace nc
         if (ImGui::Checkbox("Invert", &effect))
         {
             if (effect) m_params |= INVERT_MASK;
-            else m_params &= INVERT_MASK;
+            else m_params &= ~INVERT_MASK;
         }
 
         effect = m_params & GRAYSCALE_MASK;
         if (ImGui::Checkbox("Grayscale", &effect))
         {
             if (effect) m_params |= GRAYSCALE_MASK;
-            else m_params &= GRAYSCALE_MASK;
+            else m_params &= ~GRAYSCALE_MASK;
         }
 
         effect = m_params & COLORTINT_MASK;
         if (ImGui::Checkbox("Color Tint", &effect))
         {
-            if (effect) m_params |= COLORTINT_MASK;
-            else m_params &= COLORTINT_MASK;
+            if (effect)
+            {
+                m_params |= COLORTINT_MASK;
+            }
+            else m_params &= ~COLORTINT_MASK;
         }
+        ImGui::ColorEdit3("Tint", glm::value_ptr(tint_color));
+
+        effect = m_params & GRAIN_MASK;
+        if (ImGui::Checkbox("Grain", &effect))
+        {
+            if (effect) m_params |= GRAIN_MASK;
+            else m_params &= ~GRAIN_MASK;
+        }
+
+        effect = m_params & SCANLINE_MASK;
+        if (ImGui::Checkbox("Scanline", &effect))
+        {
+            if (effect) m_params |= SCANLINE_MASK;
+            else m_params &= ~SCANLINE_MASK;
+        }
+
+        effect = m_params & CUSTOM_MASK;
+        if (ImGui::Checkbox("Custom", &effect))
+        {
+            if (effect) m_params |= CUSTOM_MASK;
+            else m_params &= ~CUSTOM_MASK;
+        }
+
         ImGui::End();
 
         //set posprocess shader
@@ -73,6 +99,8 @@ namespace nc
             program->Use();
             program->SetUniform("blend", m_blend);
             program->SetUniform("params", m_params);
+            program->SetUniform("tint", tint_color);
+            program->SetUniform("time", ENGINE.GetTime().GetTime());
         }
 
         ENGINE.GetSystem<Gui>()->EndFrame();
